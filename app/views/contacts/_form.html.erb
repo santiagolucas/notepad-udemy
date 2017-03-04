@@ -1,0 +1,62 @@
+<%= form_for(@contact, html: {class: "basic-grey"}) do |f| %>
+  
+  <h1>Ficha Cadastral</h1>
+  <% if contact.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(contact.errors.count, "error") %> prohibited this contact from being saved:</h2>
+
+      <ul>
+      <% contact.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+  </div>
+
+  <div class="field">
+    <%= f.label :kind_id %>
+    <%= f.collection_select :kind_id, @kind, :id, :description %>
+  </div>
+  
+  <%= f.fields_for :endereco do |endereco_field| %>
+     <div class="field">
+      Rua: </br>
+     <%= endereco_field.text_field :rua %>
+     </div>
+     <div class="field"> 
+      Cidade:</br> 
+      <%= endereco_field.text_field :cidade %>
+      </div>
+      <div class="field">
+      Estado:</br>
+      <%= endereco_field.select :estado, options_for_states(@contact.endereco.estado) %>
+      </div>
+  <% end %>
+  
+  <div id="phones">
+    <%= f.fields_for :phones do |phones_fields| %>
+      <%= render partial: "phone_fields", locals: { f: phones_fields } %>
+    <% end %>
+    <%= link_to_add_association('[Adicionar Telefone]', f, :phones) %></br>
+  </div>
+</br>
+  <div class="field">
+    <%= f.label :rmk %>
+    <%= f.text_area :rmk %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Enviar", class: "button" %>
+    <%= link_to 'Voltar', contacts_path, class: "button" %>
+  </div>
+<% end %>
