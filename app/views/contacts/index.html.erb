@@ -1,4 +1,3 @@
-<div class="basic-grey">
   <p id="notice"><%= notice %></p>
   <h1>Contatos</h1>
   
@@ -17,8 +16,7 @@
     </thead>
   
     <tbody>
-      <% @contacts.each do |contact| %>
-        <tr>
+         <% @contacts.each do |contact| %>
           <td><%= contact.name %></td>
           <td><%= contact.email %></td>
           <td><%= contact.kind.description %></td>
@@ -26,7 +24,6 @@
           <td><%= contact.endereco.rua %></td>
           <td><%= contact.endereco.cidade %></td>
           <td><%= contact.endereco.estado %></td>
-          <td><%=  %></td>
           <td><%= link_to 'Show', contact %></td>
           <td><%= link_to 'Edit', edit_contact_path(contact) %></td>
           <td><%= link_to 'Destroy', contact, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -34,8 +31,6 @@
       <% end %>
     </tbody>
   </table>
-  
   <br>
   
   <%= link_to 'New Contact', new_contact_path %>
-</div>
