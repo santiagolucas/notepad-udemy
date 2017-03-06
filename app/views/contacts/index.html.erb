@@ -11,12 +11,19 @@
         <th>Rua</th>
         <th>Cidade</th>
         <th>Estado</th>
+        <th>Bonus</th>
         <th colspan="3"></th>
       </tr>
     </thead>
   
     <tbody>
          <% @contacts.each do |contact| %>
+         <% if contact.endereco.estado == "GO"
+              print = "É du Goiás!!!!"
+            else 
+              print = "Não é du goiás!!!!"
+            end %>
+        <tr>
           <td><%= contact.name %></td>
           <td><%= contact.email %></td>
           <td><%= contact.kind.description %></td>
@@ -24,6 +31,7 @@
           <td><%= contact.endereco.rua %></td>
           <td><%= contact.endereco.cidade %></td>
           <td><%= contact.endereco.estado %></td>
+          <td><%= print %></td>
           <td><%= link_to 'Show', contact %></td>
           <td><%= link_to 'Edit', edit_contact_path(contact) %></td>
           <td><%= link_to 'Destroy', contact, method: :delete, data: { confirm: 'Are you sure?' } %></td>
